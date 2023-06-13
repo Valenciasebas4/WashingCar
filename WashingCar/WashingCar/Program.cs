@@ -5,7 +5,8 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using WashingCar.DAL;
 using WashingCar.DAL.Entities;
-
+using WashingCar.Helpers;
+using WashingCar.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,7 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 //builder.Services.AddTransient<SeederDb>();
 
 //Builder para llamar la interfaz IUserHelper.cs
-//builder.Services.AddScoped<IUserHelper, UserHelper>();
+builder.Services.AddScoped<IUserHelper, UserHelper>();
 
 
 
