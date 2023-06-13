@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using WashingCar.DAL;
 using WashingCar.DAL.Entities;
 using WashingCar.Helpers;
+using WashingCar.Models;
 
 namespace WashingCar.Services
 {
@@ -61,5 +62,16 @@ namespace WashingCar.Services
         {
             return await _userManager.IsInRoleAsync(user, roleName);
         }
+
+        public async Task<SignInResult> LoginAsync(LoginViewModel loginViewModel)
+        {
+            return await _signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, loginViewModel.RememberMe, false);
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using WashingCar.DAL.Entities;
+using WashingCar.Models;
 
 namespace WashingCar.Helpers
 {
@@ -14,5 +15,7 @@ namespace WashingCar.Helpers
         Task AddUserToRoleAsync(User user, string roleName); //Relaciona la tabla User with Roles, agrega un usuario nuevo y le asigna uno de los roles
 
         Task<bool> IsUserInRoleAsync(User user, string roleName); //Valida si un usuario pertenece a un Rol
+        Task<SignInResult> LoginAsync(LoginViewModel loginViewModel);
+        Task LogoutAsync();
     }
 }
