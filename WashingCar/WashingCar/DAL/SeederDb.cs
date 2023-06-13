@@ -24,6 +24,8 @@ namespace WashingCar.DAL
             await _context.Database.EnsureCreatedAsync();
             await PopulateRolesAsync();
             await PopulateUserAsync("Sebastian", "Londoño", "sebas@yopmail.com", "3142393101", "Barbosa", "1035234145", UserType.Admin);
+            await PopulateUserAsync("Jessica", "Gomez", "jess@yopmail.com", "3142393101", "Barbosa", "1035232261", UserType.User);
+
             // await PopulateUserAsync("Bill", "Gates", "bill_gates_user@yopmail.com", "4005656656", "Street Microsoft", "405060", UserType.User);
             await _context.SaveChangesAsync();
         }
