@@ -2,6 +2,7 @@
 using WashingCar.Enum;
 using WashingCar.Helpers;
 
+
 namespace WashingCar.DAL
 {
 	public class SeederDb
@@ -21,8 +22,8 @@ namespace WashingCar.DAL
 		{
 			await _context.Database.EnsureCreatedAsync(); //crea la base de datos cuando se ejecute el proyecto
 			await PopulateRolesAsync();
-            await PopulateUserAsync("Sebastian", "Londoño", "sebas@yopmail.com", "3142393101", "Barbosa", "1035234145", UserType.Admin);
-            await PopulateUserAsync("Jessica", "Gomez", "jess@yopmail.com", "3188955943", "Barbosa", "1035232261", UserType.User);
+			await PopulateUserAsync("Sebastian", "Londoño", "sebas@yopmail.com", "3142393101", "Barbosa", "1035234145", UserType.Admin);
+			await PopulateUserAsync("Jessica", "Gomez", "jess@yopmail.com", "3188955943", "Barbosa", "1035232261", UserType.User);
             await _context.SaveChangesAsync();
 		}
 

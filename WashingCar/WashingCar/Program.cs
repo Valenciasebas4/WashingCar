@@ -8,6 +8,7 @@ using WashingCar.DAL.Entities;
 using WashingCar.Helpers;
 using WashingCar.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
