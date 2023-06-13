@@ -22,7 +22,7 @@ builder.Services.AddDbContext<DataBaseContext>(
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 //Builder para llamar la clase SeederDb.cs|
-//builder.Services.AddTransient<SeederDb>();
+builder.Services.AddTransient<SeederDb>();
 
 //Builder para llamar la interfaz IUserHelper.cs
 builder.Services.AddScoped<IUserHelper, UserHelper>();
@@ -62,10 +62,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
+
+
 app.UseRequestLocalization();
 
 //SeederData();
-/*void SeederData()
+void SeederData()
 {
     IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
@@ -75,7 +77,8 @@ app.UseRequestLocalization();
         service.SeedAsync().Wait();
     }
 }
-*/
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
