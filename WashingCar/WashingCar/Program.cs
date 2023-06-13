@@ -66,7 +66,7 @@ var app = builder.Build();
 
 app.UseRequestLocalization();
 
-//SeederData();
+SeederData();
 void SeederData()
 {
     IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
