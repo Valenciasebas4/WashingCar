@@ -11,7 +11,10 @@ namespace WashingCar.DAL
         {
         }
 
+        #region Properties
         public DbSet<Service> Services { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        #endregion
 
 
 
@@ -20,8 +23,7 @@ namespace WashingCar.DAL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Service>().HasIndex(c => c.Name).IsUnique();
-            // modelBuilder.Entity<Vehicle>().HasIndex("Id", "ServiceId").IsUnique();
-            //modelBuilder.Entity<VehicleDetails>().HasIndex("Id", "VehicleId").IsUnique(); 
+            modelBuilder.Entity<Vehicle>().HasIndex(v => v.NumberPlate).IsUnique();
         }
     }
 }

@@ -25,26 +25,10 @@ namespace WashingCar.DAL
             await PopulateRolesAsync();
             await PopulateUserAsync("Sebastian", "Londoño", "sebas@yopmail.com", "3142393101", "Barbosa", "1035234145", UserType.Admin);
             await PopulateUserAsync("Jessica", "Gomez", "jess@yopmail.com", "3142393101", "Barbosa", "1035232261", UserType.User);
-
+            await PopulateServiceAsync();
             // await PopulateUserAsync("Bill", "Gates", "bill_gates_user@yopmail.com", "4005656656", "Street Microsoft", "405060", UserType.User);
             await _context.SaveChangesAsync();
         }
-/*
-        private async Task PopulateUserAsync()
-        {
-            
-            if (!_context.Users.Any())
-            {
-                _context.Users.Add(new User { FirstName = "Sebastian", LastName = "Londoño", Email = "sebas@yopmail.com", PhoneNumber = "3142393101", Address = "Barbosa", Document = "1035234145", UserType = UserType.Admin });
-
-            }
-            
-        }
-*/
-        
-
-
-
 
         private async Task PopulateRolesAsync()
         {
@@ -79,8 +63,26 @@ namespace WashingCar.DAL
         }
 
 
-        
+        private async Task PopulateServiceAsync()
+        {
+            if (!_context.Services.Any())
+            {
+                _context.Services.Add(new Service { Name = "Lavada simple", Price = 25000 , CreatedDate= DateTime.Now });
+                _context.Services.Add(new Service { Name = "Lavada + Polishada", Price = 50000, CreatedDate = DateTime.Now });
+                _context.Services.Add(new Service { Name = "Lavada + Aspirada de Cojinería", Price = 30000, CreatedDate = DateTime.Now });
+                _context.Services.Add(new Service { Name = "Lavada Full", Price = 65000 , CreatedDate = DateTime.Now });
+                _context.Services.Add(new Service { Name = "Lavada en seco del Motor", Price = 80000 , CreatedDate = DateTime.Now });
+                _context.Services.Add(new Service { Name = "Lavada Chasis", Price = 90000 , CreatedDate = DateTime.Now });
+            }
+        }
+
 
         
+
+
+
+
+
+
     }
 }
