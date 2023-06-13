@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using WashingCar.DAL;
 using WashingCar.DAL.Entities;
@@ -48,7 +49,7 @@ namespace WashingCar.Services
 
         public async Task<User> GetUserAsync(string email)
         {
-            return await _context.Users.FindAsync(email);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             /*
              return await _context.Users
 				.Include(u => u.City)

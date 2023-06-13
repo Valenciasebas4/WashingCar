@@ -12,8 +12,8 @@ using WashingCar.DAL;
 namespace WashingCar.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230613143220_NewEntitiesEntityAndUser")]
-    partial class NewEntitiesEntityAndUser
+    [Migration("20230613201714_NewTableUser")]
+    partial class NewTableUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

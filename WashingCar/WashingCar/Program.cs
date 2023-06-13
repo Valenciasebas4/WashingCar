@@ -63,8 +63,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
-
-
 app.UseRequestLocalization();
 
 SeederData();
@@ -78,7 +76,6 @@ void SeederData()
         service.SeedAsync().Wait();
     }
 }
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -103,4 +100,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
