@@ -23,7 +23,11 @@ namespace WashingCar.DAL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Service>().HasIndex(c => c.Name).IsUnique();
-            modelBuilder.Entity<Vehicle>().HasIndex(v => v.NumberPlate).IsUnique();
+             modelBuilder.Entity<Vehicle>().HasIndex(v => v.Id).IsUnique();
+           /* modelBuilder.Entity<Service>()
+            .HasMany(s => s.Vehicles)
+            .WithOne(v => v.Service)
+            .HasForeignKey(v => v.ServiceId);*/
         }
     }
 }

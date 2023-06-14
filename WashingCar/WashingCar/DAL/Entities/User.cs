@@ -38,7 +38,7 @@ namespace WashingCar.DAL.Entities
         [Display(Name = "Tipo de usuario")]
         public UserType UserType { get; set; }
 
-        [Display(Name = "Vehiculos")] //Nombre que quiero mostrar en la web
+        [Display(Name = "Vehiculos")] 
         public ICollection<Vehicle> Vehicles { get; set; }
 
         //Propiedades de Lectura

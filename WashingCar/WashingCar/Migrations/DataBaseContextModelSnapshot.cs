@@ -289,10 +289,6 @@ namespace WashingCar.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("NumberPlate")
                         .IsRequired()
                         .HasMaxLength(6)
@@ -302,15 +298,20 @@ namespace WashingCar.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ServiceId")
+                    b.Property<Guid>("ServiceID")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NumberPlate")
+                    b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("ServiceID");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Vehicles");
                 });
@@ -370,12 +371,25 @@ namespace WashingCar.Migrations
                 {
                     b.HasOne("WashingCar.DAL.Entities.Service", "Service")
                         .WithMany("Vehicles")
-                        .HasForeignKey("ServiceId");
+                        .HasForeignKey("ServiceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WashingCar.DAL.Entities.User", "User")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Service");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WashingCar.DAL.Entities.Service", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("WashingCar.DAL.Entities.User", b =>
                 {
                     b.Navigation("Vehicles");
                 });

@@ -60,13 +60,15 @@ namespace WashingCar.Controllers
                         
                         CreatedDate = DateTime.Now,
                         Service = await _context.Services.FindAsync(addVehicleViewModel.ServiceId),
-                        User = user,
+                        Owner = user.ToString(),
+                        NumberPlate= addVehicleViewModel.NumberPlate,
+                        User= user,
                     };
 
 
                     _context.Add(vehicle);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Create));
                 }
                
                 catch (Exception exception)

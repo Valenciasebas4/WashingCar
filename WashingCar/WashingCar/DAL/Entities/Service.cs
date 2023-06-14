@@ -22,8 +22,7 @@ namespace WashingCar.DAL.Entities
         [Display(Name = "Vehiculos")]
         public ICollection<Vehicle> Vehicles { get; set; }
 
-        [Display(Name = "Número de vehiculos")]
-        public int VehicleNumber => Vehicles == null ? 0 : Vehicles.Count;
+        
         #endregion
     }
 }
