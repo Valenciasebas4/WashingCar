@@ -1,7 +1,6 @@
-﻿@model IEnumerable<WashingCar.DAL.Entities.Vehicle>
-
+﻿@model IEnumerable<WashingCar.DAL.Entities.VehicleDetails>
 @{
-    ViewData["Title"] = "MyServices";
+    ViewData["Title"] = "Index";
 }
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
@@ -19,43 +18,57 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">  </div>
                     <div class="panel-body">
-                        
+
                         <table class="table table-borderless table-light table-hover table-responsive" id="VehicleTable">
                             <thead class="table-dark">
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Service.Name)
+                                        @Html.DisplayNameFor(model => model.Vehicle.Owner.FullName)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                        @Html.DisplayNameFor(model => model.Vehicle.NumberPlate)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Service.Price)
+                                        @Html.DisplayNameFor(model => model.Vehicle.Service.Name)
                                     </th>
-                                    <th></th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicle.Service.Price)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vehicle.CreatedDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DeliveryDate)
+                                    </th>
+                                 
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    if (item.Owner.Id == ViewBag.UserId) // Replace "UserId" with the appropriate property name
+                                    if (item.Vehicle.Owner.Id == ViewBag.UserId) // Replace "UserId" with the appropriate property name
                                     {
                                         <tr>
+
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Service.Name)
+                                                @Html.DisplayFor(modelItem => item.Vehicle.Owner.FullName)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                                                @Html.DisplayFor(modelItem => item.Vehicle.NumberPlate)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Service.Price)
+                                                @Html.DisplayFor(modelItem => item.Vehicle.Service.Name)
                                             </td>
-  
+                                             <td>
+                                                @Html.DisplayFor(modelItem => item.Vehicle.Service.Price)
+                                            </td>
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Editar</a>
-                                                
-                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Eliminar</a>
+                                                @Html.DisplayFor(modelItem => item.Vehicle.CreatedDate)
                                             </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DeliveryDate)
+                                            </td>
+
                                         </tr>
                                     }
                                 }
@@ -67,27 +80,3 @@
         </div>
     </main>
 </div>
-
-
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#VehicleTable').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                },
-                "aLengthMenu": [
-                    [5, 25, 50, 100, 200, -1],
-                    [5, 25, 50, 100, 200, "Todos"]
-                ]
-            });
-        });
-    </script>
-}

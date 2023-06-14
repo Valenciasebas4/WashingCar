@@ -126,8 +126,18 @@ namespace WashingCar.Controllers
                             NumberPlate = addVehicleViewModel.NumberPlate,
                         };
 
+                        VehicleDetails vehicleDetails = new()
+                        {
+                            CreatedDate = DateTime.Now,
+                            Vehicle = vehicle,
+
+                        };
+
+                       
+
 
                         _context.Add(vehicle);
+                        _context.Add(vehicleDetails);
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(MyServices));
                     }
@@ -143,5 +153,6 @@ namespace WashingCar.Controllers
             return View(addVehicleViewModel);
         }
 
+        
     }
 }
