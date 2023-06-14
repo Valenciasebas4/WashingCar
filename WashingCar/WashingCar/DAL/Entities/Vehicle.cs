@@ -20,7 +20,8 @@ namespace WashingCar.DAL.Entities
         public string NumberPlate { get; set; }
 
         [Display(Name = "Servicio.")]
-        public Service Service { get; set; }
+       // public Service Service { get; set; }
+        public ICollection<Service> Services { get; set; }
         #endregion
     }
 }
