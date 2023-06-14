@@ -66,7 +66,7 @@ namespace WashingCar.Controllers
             Problem("Entity set 'DataBaseContext.UserTrainings'  is null.");
             
         }
-
+/*
         public async Task<IActionResult> MyServices()
         {
             ViewBag.UserFullName = GetUserFullName();
@@ -82,7 +82,7 @@ namespace WashingCar.Controllers
             Problem("Entity set 'DataBaseContext.Vehicles'  is null.");
 
         }
-
+*/
         [Authorize]
         public async Task<IActionResult> Create()
         {
