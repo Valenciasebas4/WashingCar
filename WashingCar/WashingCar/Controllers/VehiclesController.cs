@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WashingCar.DAL;
 using WashingCar.DAL.Entities;
 using WashingCar.Helpers;
@@ -52,28 +53,44 @@ namespace WashingCar.Controllers
             if (ModelState.IsValid)
             {
                 User user = await _userHelper.GetUserAsync(User.Identity.Name);
-                try
+
+                // Calcular la fecha mínima permitida para el nuevo registro
+                DateTime maxDate = DateTime.Now.Date.AddDays(-2);
+                // Verificar si ya existe un vehículo con la misma placa y fecha actual
+                bool vehicleExists = await _context.Vehicles
+                    .AnyAsync(v => v.NumberPlate == addVehicleViewModel.NumberPlate &&
+                                   v.CreatedDate > maxDate);
+                if (vehicleExists)
                 {
-                    Vehicle vehicle = new()
-                    {
-
-                        
-                        CreatedDate = DateTime.Now,
-                        Service = await _context.Services.FindAsync(addVehicleViewModel.ServiceId),
-                        Owner = user.ToString(),
-                        NumberPlate= addVehicleViewModel.NumberPlate,
-                        User= user,
-                    };
-
-
-                    _context.Add(vehicle);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Create));
+                    ModelState.AddModelError(string.Empty, "Ya se ha registrado un vehículo con la misma placa en los últimos 2 días.");
                 }
-               
-                catch (Exception exception)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, exception.Message);
+
+
+                    try
+                    {
+                        Vehicle vehicle = new()
+                        {
+
+
+                            CreatedDate = addVehicleViewModel.CreatedDate,
+                            Service = await _context.Services.FindAsync(addVehicleViewModel.ServiceId),
+                            Owner = user.ToString(),
+                            NumberPlate = addVehicleViewModel.NumberPlate,
+                            User = user,
+                        };
+
+
+                        _context.Add(vehicle);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Create));
+                    }
+
+                    catch (Exception exception)
+                    {
+                        ModelState.AddModelError(string.Empty, exception.Message);
+                    }
                 }
             }
 
