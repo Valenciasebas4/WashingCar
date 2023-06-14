@@ -35,7 +35,7 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    if (item.UserId == ViewBag.UserId) // Replace "UserId" with the appropriate property name
+                                    if (item.Owner.Id == ViewBag.UserId) // Replace "UserId" with the appropriate property name
                                     {
                                         <tr>
                                             <td>

@@ -14,7 +14,7 @@
         <tr>
             
             <th>
-                @Html.DisplayNameFor(model => model.Owner)
+                @Html.DisplayNameFor(model => model.Owner.FullName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NumberPlate)
@@ -33,7 +33,7 @@
         <tr>
          
             <td>
-                @Html.DisplayFor(modelItem => item.Owner)
+                    @Html.DisplayFor(modelItem => item.Owner.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumberPlate)

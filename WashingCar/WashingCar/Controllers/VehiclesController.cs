@@ -28,7 +28,7 @@ namespace WashingCar.Controllers
         {
             return _context.Users
                 .Where(u => u.Email == User.Identity.Name)
-                .Select(u => u.Id)
+                .Select(u => u.Id.ToString())
                 .FirstOrDefault();
         }
 
@@ -44,7 +44,7 @@ namespace WashingCar.Controllers
         {
             string userId = GetUserId(); // Obtener el ID del usuario actual
             var training = _context.Vehicles
-                .Where(t => t.UserId == userId) // Filtrar por el ID del usuario
+                .Where(t => t.Owner.Id == userId) // Filtrar por el ID del usuario
                 .Select(t => t.Service.Name)
                 .FirstOrDefault();
 
@@ -60,7 +60,7 @@ namespace WashingCar.Controllers
 
 
             return View(await _context.Vehicles
-                .Include(o => o.User)
+                .Include(o => o.Owner)
                 .Include(o => o.Service)
                 .ToListAsync());
             Problem("Entity set 'DataBaseContext.UserTrainings'  is null.");
@@ -76,7 +76,7 @@ namespace WashingCar.Controllers
 
 
             return View(await _context.Vehicles
-                .Include(o => o.User)
+                .Include(o => o.Owner)
                 .Include(o => o.Service)
                 .ToListAsync());
             Problem("Entity set 'DataBaseContext.Vehicles'  is null.");
@@ -122,9 +122,8 @@ namespace WashingCar.Controllers
                         {
                             CreatedDate = DateTime.Now,
                             Service = await _context.Services.FindAsync(addVehicleViewModel.ServiceId),
-                            Owner = user.ToString(),
+                            Owner= user,
                             NumberPlate = addVehicleViewModel.NumberPlate,
-                            User = user,
                         };
 
 

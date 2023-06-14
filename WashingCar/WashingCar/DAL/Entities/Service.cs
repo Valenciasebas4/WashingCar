@@ -20,7 +20,10 @@ namespace WashingCar.DAL.Entities
         public decimal Price { get; set; }
 
         [Display(Name = "Vehiculos")]
-        public ICollection<Vehicle> Vehicles { get; set; }
+        public Guid VehicleId { get; set; }
+
+       public List<Vehicle> Vehicles { get;set; }
+       // public ICollection<Vehicle> Vehicles { get; set; }
 
         
         #endregion
