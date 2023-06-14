@@ -315,6 +315,34 @@ namespace WashingCar.Migrations
                     b.ToTable("Vehicles");
                 });
 
+            modelBuilder.Entity("WashingCar.DAL.Entities.VehicleDetails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("VehicleIdId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("VehicleIdId");
+
+                    b.ToTable("VehiclesDetails");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -381,6 +409,15 @@ namespace WashingCar.Migrations
                     b.Navigation("Service");
                 });
 
+            modelBuilder.Entity("WashingCar.DAL.Entities.VehicleDetails", b =>
+                {
+                    b.HasOne("WashingCar.DAL.Entities.Vehicle", "VehicleId")
+                        .WithMany("VehicleDetails")
+                        .HasForeignKey("VehicleIdId");
+
+                    b.Navigation("VehicleId");
+                });
+
             modelBuilder.Entity("WashingCar.DAL.Entities.Service", b =>
                 {
                     b.Navigation("Vehicles");
@@ -389,6 +426,11 @@ namespace WashingCar.Migrations
             modelBuilder.Entity("WashingCar.DAL.Entities.User", b =>
                 {
                     b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("WashingCar.DAL.Entities.Vehicle", b =>
+                {
+                    b.Navigation("VehicleDetails");
                 });
 #pragma warning restore 612, 618
         }

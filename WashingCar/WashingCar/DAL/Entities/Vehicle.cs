@@ -9,7 +9,7 @@ namespace WashingCar.DAL.Entities
 
         [Display(Name = "Servicio.")]
         public virtual Service Service { get; set; }
-        //public Guid ServiceID { get; set; }
+        
 
         [Display(Name = "Propietario.")]
         //[Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -20,6 +20,10 @@ namespace WashingCar.DAL.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string NumberPlate { get; set; }
 
+        [Display(Name = "Detalles Vehiculos")]
+        public Guid VehicleDetailsId { get; set; }
+
+        public List<VehicleDetails> VehiclesDetails { get; set; }
         #endregion
     }
 }
