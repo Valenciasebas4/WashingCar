@@ -24,6 +24,14 @@ namespace WashingCar.Controllers
 
         }
 
+        private string GetUserId()
+        {
+            return _context.Users
+                .Where(u => u.Email == User.Identity.Name)
+                .Select(u => u.Id)
+                .FirstOrDefault();
+        }
+
         private string GetUserFullName()
         {
             return _context.Users
@@ -32,6 +40,48 @@ namespace WashingCar.Controllers
                 .FirstOrDefault();
         }
 
+        private string GetServiceName()
+        {
+            string userId = GetUserId(); // Obtener el ID del usuario actual
+            var training = _context.Vehicles
+                .Where(t => t.UserId == userId) // Filtrar por el ID del usuario
+                .Select(t => t.Service.Name)
+                .FirstOrDefault();
+
+            return training;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.UserFullName = GetUserFullName();
+
+            ViewBag.TrainingName = GetServiceName();
+            ViewBag.UserId = GetUserId();
+
+
+            return View(await _context.Vehicles
+                .Include(o => o.User)
+                .Include(o => o.Service)
+                .ToListAsync());
+            Problem("Entity set 'DataBaseContext.UserTrainings'  is null.");
+            
+        }
+
+        public async Task<IActionResult> MyServices()
+        {
+            ViewBag.UserFullName = GetUserFullName();
+
+            ViewBag.TrainingName = GetServiceName();
+            ViewBag.UserId = GetUserId();
+
+
+            return View(await _context.Vehicles
+                .Include(o => o.User)
+                .Include(o => o.Service)
+                .ToListAsync());
+            Problem("Entity set 'DataBaseContext.Vehicles'  is null.");
+
+        }
 
         [Authorize]
         public async Task<IActionResult> Create()
@@ -66,14 +116,10 @@ namespace WashingCar.Controllers
                 }
                 else
                 {
-
-
                     try
                     {
                         Vehicle vehicle = new()
                         {
-
-
                             CreatedDate = DateTime.Now,
                             Service = await _context.Services.FindAsync(addVehicleViewModel.ServiceId),
                             Owner = user.ToString(),
@@ -84,7 +130,7 @@ namespace WashingCar.Controllers
 
                         _context.Add(vehicle);
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Create));
+                        return RedirectToAction(nameof(MyServices));
                     }
 
                     catch (Exception exception)
