@@ -17,7 +17,7 @@ namespace WashingCar.Models
         [Display(Name = "Numero de placa")]
         public string NumberPlate { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+       
 
         /*
          [Display(Name = "Servicio")]

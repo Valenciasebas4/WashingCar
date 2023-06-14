@@ -74,7 +74,7 @@ namespace WashingCar.Controllers
                         {
 
 
-                            CreatedDate = addVehicleViewModel.CreatedDate,
+                            CreatedDate = DateTime.Now,
                             Service = await _context.Services.FindAsync(addVehicleViewModel.ServiceId),
                             Owner = user.ToString(),
                             NumberPlate = addVehicleViewModel.NumberPlate,
